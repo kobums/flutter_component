@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_component/screens/infinity_screen.dart';
+import 'package:flutter_component/screens/login/login_screen.dart';
 import 'package:get/get.dart';
 
 import 'screens/home.dart';
-import 'screens/artauction_screen.dart';
+import 'screens/infinityScroll/infinity_screen.dart';
+import 'screens/infinityScroll/artauction_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,10 +22,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: "/",
+      initialRoute: "/login",
       getPages: [
         GetPage(
             name: "/", page: () => const Home(), transition: Transition.fade),
+        GetPage(
+            name: "/login",
+            page: () => const LoginScreen(),
+            transition: Transition.fade),
         GetPage(
             name: "/infinity",
             page: () => const InfinityScreen(),
