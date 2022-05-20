@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:flutter_component/services/user_services.dart';
 import 'package:http/http.dart' as http;
 
 class InfinityController extends GetxController {
-  // InfinityController({Key? key, required this.url});
-  var urll;
-  InfinityController(this.urll);
+  var apiUrl;
+  InfinityController(this.apiUrl);
 
   var scrollController = ScrollController().obs;
   var page = 1.obs;
@@ -32,21 +32,25 @@ class InfinityController extends GetxController {
     if (isLoading.value) return;
     isLoading.value = true;
 
-    const limit = 25;
+    const limit = 7;
 
-    final url = Uri.parse('$urll?_limit=$limit&_page=$page');
+    final url = Uri.parse('$apiUrl?pagesize=$limit&page=$page');
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
-      final List newItems = json.decode(response.body);
+      final newItems = json.decode(response.body);
       page.value++;
       isLoading.value = false;
 
-      if (newItems.length < limit) {
+      User user = User.fromJson(newItems);
+
+      var useritems = user.items;
+      if (useritems.length < limit) {
         hasMore.value = false;
       }
-      items.addAll(newItems.map<String>((item) {
-        final number = item['id'];
+
+      items.addAll(useritems.map<String>((item) {
+        final number = item.id;
         return 'Item $number';
       }).toList());
     }
@@ -58,6 +62,5 @@ class InfinityController extends GetxController {
     hasMore.value = true;
     page.value = 1;
     items.clear();
-    // update();
   }
 }

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_component/screens/infinity_screen.dart';
 import 'package:get/get.dart';
 
-import 'home.dart';
+import 'screens/home.dart';
+import 'screens/artauction_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,6 +28,10 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: "/infinity",
             page: () => const InfinityScreen(),
+            transition: Transition.downToUp),
+        GetPage(
+            name: "/artauction",
+            page: () => const ArtauctionScreen(),
             transition: Transition.downToUp),
       ],
     );

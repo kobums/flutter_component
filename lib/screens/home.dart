@@ -19,8 +19,13 @@ class Home extends StatelessWidget {
               style: Theme.of(context).textTheme.headline4,
             ),
             TextButton(
-                onPressed: () => Get.toNamed("/infinity"),
-                child: const Text("infinity"))
+              onPressed: () => Get.toNamed("/infinity"),
+              child: const Text("infinity"),
+            ),
+            TextButton(
+              onPressed: () => Get.toNamed("/artauction"),
+              child: const Text("artauction"),
+            ),
           ],
         ),
       ),
