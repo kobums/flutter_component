@@ -1,50 +1,126 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../controller/infinity_controller.dart';
+typedef ItemRender = Widget Function(dynamic);
+typedef ItemReader = Future<List<dynamic>> Function(
+    {int page, int pagesize, String? params});
 
-class InfinityComponents extends StatelessWidget {
-  InfinityComponents({Key? key, required this.url, required this.tag})
-      : super(key: key) {
-    _controller = Get.put(InfinityController(url), tag: tag, permanent: true);
-  }
+class InfiniteController extends GetxController {
+  var cache = [].obs;
+  var loading = false.obs;
+  var end = false.obs;
+  var pagesize = 20;
+  var page = 1.obs;
 
-  String url = '';
-  String tag = '';
+  final ItemReader reader;
+  final String? params;
 
-  late InfinityController _controller;
-  // Get.put(InfinityController(url));
+  InfiniteController(this.reader, this.params);
 
   @override
-  Widget build(BuildContext context) {
-    // Get.put(InfinityController());
-    return Obx(
-      () => RefreshIndicator(
-        onRefresh: () async {
-          _controller.refresh();
-        },
-        child: ListView.builder(
-          controller: _controller.scrollController.value,
-          padding: const EdgeInsets.all(100),
-          itemCount: _controller.items.length + 1,
-          itemBuilder: (context, index) {
-            if (index < _controller.items.length) {
-              final item = _controller.items[index];
+  void onInit() {
+    read();
 
-              return ListTile(title: Text(item));
-            } else {
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 32),
-                child: Center(
-                  child: _controller.hasMore.value
-                      ? const CircularProgressIndicator()
-                      : const Text('No more data to load'),
-                ),
-              );
-            }
-          },
-        ),
-      ),
-    );
+    super.onInit();
+  }
+
+  reload() {
+    cache.value = [];
+    page.value = 1;
+    loading.value = false;
+    end.value = false;
+    return fetch();
+  }
+
+  read() {
+    Future.microtask(() => fetch());
+  }
+
+  readItem() async {
+    return reader(page: page.value, pagesize: pagesize, params: params);
+  }
+
+  fetch() async {
+    if (loading.value == true) {
+      return;
+    }
+
+    if (end.value == true) {
+      return;
+    }
+
+    loading.value = true;
+
+    final items = await readItem();
+
+    if (items.isEmpty || items.length < pagesize) {
+      end.value = true;
+    }
+
+    cache.value = [
+      ...cache,
+      ...items,
+    ];
+
+    page++;
+
+    loading.value = false;
+  }
+}
+
+class InfiniteScroll extends StatelessWidget {
+  final ItemRender builder;
+  final ItemReader reader;
+  final String params = '';
+
+  const InfiniteScroll(
+      {Key? key, required this.builder, required this.reader, String? params})
+      : super(key: key);
+
+  @override
+  Widget build(context) {
+    final InfiniteController controller =
+        Get.put(InfiniteController(reader, params), tag: (reader).toString());
+
+    return RefreshIndicator(
+        onRefresh: () => controller.reload(), child: Obx(() => _render()));
+  }
+
+  Widget _render() {
+    final InfiniteController controller =
+        Get.put(InfiniteController(reader, params), tag: (reader).toString());
+
+    final cache = controller.cache;
+    final loading = controller.loading.value;
+    final end = controller.end.value;
+
+    if (cache.isEmpty) {
+      if (loading) {
+        return const Center(child: CircularProgressIndicator());
+      } else {
+        return const Center(child: Text('아이템이 없습니다'));
+      }
+    }
+
+    return ListView.builder(
+        itemCount: cache.length + 1,
+        itemBuilder: (context, index) {
+          if (index < cache.length) {
+            return builder(cache[index]);
+          }
+
+          if (end) {
+            return Container();
+          }
+
+          if (!loading) {
+            log('in listview fetchitem');
+            controller.read();
+          }
+
+          return const Center(child: CircularProgressIndicator());
+        });
   }
 }

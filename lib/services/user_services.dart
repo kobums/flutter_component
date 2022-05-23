@@ -14,23 +14,23 @@ class User {
 
 class Items {
   final int id;
-  // final String email;
-  // final String firstname;
-  // final String lastname;
+  final String email;
+  final String firstname;
+  final String lastname;
 
   Items({
     required this.id,
-    // required this.email,
-    // required this.firstname,
-    // required this.lastname,
+    required this.email,
+    required this.firstname,
+    required this.lastname,
   });
 
   factory Items.fromJson(Map<String, dynamic> parsedJson) {
     return Items(
       id: parsedJson['id'],
-      // email: parsedJson['email'],
-      // firstname: parsedJson['firstname'],
-      // lastname: parsedJson['lastname'],
+      email: parsedJson['email'],
+      firstname: parsedJson['firstname'],
+      lastname: parsedJson['lastname'],
     );
   }
 }

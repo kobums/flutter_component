@@ -1,12 +1,14 @@
-import 'dart:io';
 import 'package:http/http.dart' as http;
 
 class Request {
-  Future<String?> login(url, username, password, token) async {
+  Future<String?> login(
+      {required String url,
+      required String loginid,
+      required String passwd}) async {
     var res = await http.post(
-      url,
-      body: {"username": username, "password": password},
-      headers: {HttpHeaders.authorizationHeader: "Bearer $token"},
+      Uri.parse(url),
+      body: {"loginid": loginid, "passwd": passwd},
+      // headers: {HttpHeaders.authorizationHeader: "Bearer $token"},
     );
     if (res.statusCode == 200) {
       return res.body;
