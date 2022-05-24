@@ -13,6 +13,7 @@ class InfiniteController extends GetxController {
   var end = false.obs;
   var pagesize = 20;
   var page = 1.obs;
+  var search = ''.obs;
 
   final ItemReader reader;
   final String? params;
@@ -22,6 +23,9 @@ class InfiniteController extends GetxController {
   @override
   void onInit() {
     read();
+    debounce(search, (_) {
+      read();
+    }, time: const Duration(milliseconds: 300));
 
     super.onInit();
   }

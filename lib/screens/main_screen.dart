@@ -3,39 +3,17 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_component/controller/login_controller.dart';
-import 'package:flutter_component/screens/infinityScroll/artauction_screen.dart';
-import 'package:flutter_component/screens/infinityScroll/infinity_screen.dart';
+import 'package:flutter_component/screens/infinityScroll/user_screen.dart';
+import 'package:flutter_component/screens/infinityScroll/picture_screen.dart';
 import 'package:get/get.dart';
 
 List<Widget> screenList = [
-  const ArtauctionScreen(),
-  const InfinityScreen(),
+  const UserScreen(),
+  const PictureScreen(),
 ];
 
 class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);
-
-  // openAlert(context) {
-  //   //Get.toNamed('/detail');
-  //   log('openAlert');
-
-  //   Alert(
-  //     context: context,
-  //     type: AlertType.error,
-  //     title: "RFLUTTER ALERT",
-  //     desc: "Flutter is more awesome with RFlutter Alert.",
-  //     buttons: [
-  //       DialogButton(
-  //         onPressed: () => Navigator.pop(context),
-  //         width: 120,
-  //         child: const Text(
-  //           "COOL",
-  //           style: TextStyle(color: Colors.white, fontSize: 20),
-  //         ),
-  //       )
-  //     ],
-  //   ).show();
-  // }
 
   Widget getActionButton(context, c) {
     log(c.screenIndex.value.toString());

@@ -3,8 +3,8 @@ import 'package:flutter_component/components/infinity_components.dart';
 
 import '../../models/picture.dart';
 
-class InfinityScreen extends StatelessWidget {
-  const InfinityScreen({Key? key}) : super(key: key);
+class PictureScreen extends StatelessWidget {
+  const PictureScreen({Key? key}) : super(key: key);
 
   Widget _renderItem(dynamic data) {
     var item = data as Picture;

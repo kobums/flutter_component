@@ -32,7 +32,7 @@ class UserManager {
   static Future<List<User>> find(
       {int page = 0, int pagesize = 20, String? params}) async {
     try {
-      var url = '${config.serverUrl}/api/user?page=$page&pagesize=$pagesize';
+      var url = '${config.artUrl}/api/user?page=$page&pagesize=$pagesize';
       if (params != null) {
         url += '&$params';
       }
