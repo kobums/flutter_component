@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_component/controller/login_controller.dart';
+import 'package:flutter_component/controller/auth_controller.dart';
 import 'package:get/get.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);
 
-  final LoginController controller = Get.put(LoginController());
+  final AuthController controller = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
           TextButton(
             child: const Text("logout"),
             onPressed: () {
-              controller.logout();
+              controller.authenticated = false;
               Get.offAllNamed("/login");
             },
           ),

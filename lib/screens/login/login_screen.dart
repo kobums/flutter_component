@@ -13,16 +13,13 @@ import '../../constants/constants.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
 
-  final authController = Get.put(AuthController());
+  final authController = Get.find<AuthController>();
   final LoginController controller = Get.put(LoginController());
 
   static const storage = FlutterSecureStorage();
 
   @override
   Widget build(BuildContext context) {
-    String loginid = '';
-    String passwd = '';
-
     void login(loginid, passwd) async {
       var result = await http.get(
         Uri.parse(
@@ -31,11 +28,10 @@ class LoginScreen extends StatelessWidget {
       if (result.statusCode == 200) {
         final parsed = json.decode(result.body);
         if (parsed['code'] == 'ok') {
+          authController.authenticated = true;
           await storage.write(key: 'token', value: 'bearer ${parsed['token']}');
           await storage.write(key: 'login', value: 'id');
-          controller.isLogin.value = true;
-          authController.authenticated = true;
-          Get.offAllNamed("/main");
+          await Get.offAllNamed("/main");
         }
       } else {}
     }
@@ -52,7 +48,7 @@ class LoginScreen extends StatelessWidget {
             ),
             TextField(
               onChanged: (value) {
-                loginid = value;
+                controller.loginid = value;
               },
               decoration:
                   kTextFieldDecoration.copyWith(hintText: "Enter your loginid"),
@@ -62,7 +58,7 @@ class LoginScreen extends StatelessWidget {
             ),
             TextField(
               onChanged: (value) {
-                passwd = value;
+                controller.passwd = value;
               },
               decoration: kTextFieldDecoration.copyWith(
                   hintText: "Enter your password"),
@@ -82,7 +78,7 @@ class LoginScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30.0),
                 child: MaterialButton(
                   onPressed: () {
-                    login(loginid, passwd);
+                    login(controller.loginid, controller.passwd);
                   },
                   minWidth: 200.0,
                   height: 42.0,
