@@ -2,14 +2,18 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_component/controller/login_controller.dart';
-import 'package:flutter_component/screens/infinityScroll/user_screen.dart';
-import 'package:flutter_component/screens/infinityScroll/picture_screen.dart';
+import 'package:flutter_component/controller/main_controller.dart';
+import 'package:flutter_component/screens/profile_screen.dart';
+import 'package:flutter_component/screens/user_screen.dart';
+import 'package:flutter_component/screens/picture_screen.dart';
 import 'package:get/get.dart';
 
 List<Widget> screenList = [
   const UserScreen(),
   const PictureScreen(),
+  ProfileScreen(),
+  ProfileScreen(),
+  ProfileScreen(),
 ];
 
 class MainScreen extends StatelessWidget {
@@ -33,7 +37,7 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final LoginController c = Get.put(LoginController());
+    final MainController c = Get.put(MainController());
 
     return Scaffold(
         appBar: AppBar(title: const Text('main')),

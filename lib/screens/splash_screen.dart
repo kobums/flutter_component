@@ -18,11 +18,7 @@ class SplashScreen extends StatelessWidget {
     final LoginController controller = Get.put(LoginController());
 
     Timer(const Duration(milliseconds: 1500), () {
-      if (controller.isLogin.value == true) {
-        Get.offAllNamed("/mainscreen");
-      } else {
-        Get.offAllNamed("/login");
-      }
+      Get.offAllNamed("/main");
     });
 
     return WillPopScope(

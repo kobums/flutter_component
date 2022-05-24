@@ -4,17 +4,11 @@ import 'package:flutter_component/screens/main_screen.dart';
 import 'package:flutter_component/screens/splash_screen.dart';
 import 'package:get/get.dart';
 
+import 'services/auth_service.dart';
+
 void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
+  runApp(
+    GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: "/",
       getPages: [
@@ -24,13 +18,14 @@ class MyApp extends StatelessWidget {
             transition: Transition.fade),
         GetPage(
             name: "/login",
-            page: () => const LoginScreen(),
+            page: () => LoginScreen(),
             transition: Transition.fade),
         GetPage(
-            name: "/mainscreen",
+            name: "/main",
             page: () => const MainScreen(),
-            transition: Transition.downToUp),
+            transition: Transition.downToUp,
+            middlewares: [AuthService()]),
       ],
-    );
-  }
+    ),
+  );
 }

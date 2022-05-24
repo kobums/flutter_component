@@ -1,17 +1,45 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_component/controller/login_controller.dart';
-import 'package:get/get.dart';
+import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_component/controller/auth_controller.dart';
+import 'package:flutter_component/controller/login_controller.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+
+import '../../config/config.dart' as config;
 import '../../constants/constants.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({Key? key}) : super(key: key);
+
+  final authController = Get.put(AuthController());
+  final LoginController controller = Get.put(LoginController());
+
+  static const storage = FlutterSecureStorage();
 
   @override
   Widget build(BuildContext context) {
-    final LoginController controller = Get.put(LoginController());
     String loginid = '';
     String passwd = '';
+
+    void login(loginid, passwd) async {
+      var result = await http.get(
+        Uri.parse(
+            '${config.serverUrl}/api/jwt?loginid=$loginid&passwd=$passwd'),
+      );
+      if (result.statusCode == 200) {
+        final parsed = json.decode(result.body);
+        if (parsed['code'] == 'ok') {
+          await storage.write(key: 'token', value: 'bearer ${parsed['token']}');
+          await storage.write(key: 'login', value: 'id');
+          controller.isLogin.value = true;
+          authController.authenticated = true;
+          Get.offAllNamed("/main");
+        }
+      } else {}
+    }
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -54,10 +82,7 @@ class LoginScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30.0),
                 child: MaterialButton(
                   onPressed: () {
-                    controller.login(loginid, passwd);
-                    if (controller.isLogin.value == true) {
-                      Get.offAllNamed("/home");
-                    }
+                    login(loginid, passwd);
                   },
                   minWidth: 200.0,
                   height: 42.0,
