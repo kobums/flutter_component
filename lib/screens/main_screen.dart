@@ -42,13 +42,13 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(title: const Text('main')),
         body: Obx(
-          () => screenList[c.screenIndex.value],
+          () => screenList[c.screenIndex],
         ),
         bottomNavigationBar: Obx(() => BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
               showSelectedLabels: false,
               showUnselectedLabels: false,
-              currentIndex: c.screenIndex.value,
+              currentIndex: c.screenIndex,
               fixedColor: Theme.of(context).primaryColor,
               items: const [
                 BottomNavigationBarItem(

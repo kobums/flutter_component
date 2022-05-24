@@ -1,7 +1,12 @@
 import 'package:get/get.dart';
 
 class MainController extends GetxController {
-  var screenIndex = 0.obs;
+  final _screenIndex = 0.obs;
 
-  setScreen(pos) => screenIndex.value = pos;
+  int get screenIndex => _screenIndex.value;
+  set screenIndex(value) => _screenIndex.value = value;
+
+  setScreen(pos) {
+    screenIndex = pos;
+  }
 }
