@@ -7,15 +7,12 @@ import '../config/config.dart' as config;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginController extends GetxController {
+  LoginController();
+
+  static const storage = FlutterSecureStorage();
   var screenIndex = 0.obs;
   var isLogin = false.obs;
   var token = ''.obs;
-
-  var url = '${config.serverUrl}/api/jwt'.obs;
-
-  static const storage = FlutterSecureStorage();
-
-  LoginController();
 
   setScreen(pos) => screenIndex.value = pos;
 
@@ -29,7 +26,6 @@ class LoginController extends GetxController {
 
   loginState() async {
     String? userInfo = await storage.read(key: 'login');
-
     if (userInfo != null) {
       isLogin.value = true;
     }
@@ -37,31 +33,21 @@ class LoginController extends GetxController {
 
   login(loginid, passwd) async {
     var result = await http.get(
-      Uri.parse('${url.value}?loginid=$loginid&passwd=$passwd'),
+      Uri.parse('${config.serverUrl}/api/jwt?loginid=$loginid&passwd=$passwd'),
     );
-    print(result.statusCode);
     if (result.statusCode == 200) {
       final parsed = json.decode(result.body);
-      await storage.write(
-          key: 'token', value: 'bearer ${Login.fromJson(parsed).token}');
-      await storage.write(key: 'login', value: 'id');
-      isLogin.value = true;
+      if (parsed['code'] == 'ok') {
+        await storage.write(key: 'token', value: 'bearer ${parsed['token']}');
+        await storage.write(key: 'login', value: 'id');
+        isLogin.value = true;
+      } else {}
     }
   }
 
   logout() async {
     await storage.delete(key: 'login');
+    await storage.delete(key: 'token');
     isLogin.value = false;
   }
-}
-
-class Login {
-  final String token;
-
-  const Login({required this.token});
-
-  factory Login.fromJson(Map<String, dynamic> json) {
-    return Login(token: json['token'] as String);
-  }
-  Map<String, dynamic> toJson() => {'token': token};
 }
