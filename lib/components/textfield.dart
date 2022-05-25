@@ -12,7 +12,8 @@ class MyTextField extends StatelessWidget {
       this.decoration,
       this.labelText,
       this.hintText,
-      this.prefixIcon})
+      this.prefixIcon,
+      this.obscureText = false})
       : super(key: key);
 
   final controller;
@@ -20,6 +21,7 @@ class MyTextField extends StatelessWidget {
   final labelText;
   final hintText;
   final prefixIcon;
+  final obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,7 @@ class MyTextField extends StatelessWidget {
           },
         ),
       ),
+      obscureText: obscureText,
     );
   }
 }

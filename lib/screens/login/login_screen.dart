@@ -57,11 +57,13 @@ class LoginScreen extends StatelessWidget {
               height: 8.0,
             ),
             MyTextField(
-                controller: controller.txtPasswd,
-                decoration: kTextFieldDecoration,
-                labelText: 'Password',
-                hintText: 'Enter your password',
-                prefixIcon: const Icon(Icons.lock)),
+              controller: controller.txtPasswd,
+              decoration: kTextFieldDecoration,
+              labelText: 'Password',
+              hintText: 'Enter your password',
+              prefixIcon: const Icon(Icons.lock),
+              obscureText: true,
+            ),
             const SizedBox(
               height: 24.0,
             ),
