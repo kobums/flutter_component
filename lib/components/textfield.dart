@@ -37,6 +37,7 @@ class MyTextField extends StatelessWidget {
             controller.clear();
           },
         ),
+        // suffixIcon: null,
       ),
       obscureText: obscureText,
     );
