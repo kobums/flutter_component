@@ -8,12 +8,25 @@ typedef ItemReader = Future<List<dynamic>> Function(
     {int page, int pagesize, String? params});
 
 class InfiniteController extends GetxController {
-  var cache = [].obs;
-  var loading = false.obs;
-  var end = false.obs;
-  var pagesize = 20;
-  var page = 1.obs;
-  var search = ''.obs;
+  final _cache = [].obs;
+  final _loading = false.obs;
+  final _end = false.obs;
+  final _pagesize = 20.obs;
+  final _page = 1.obs;
+  final _search = ''.obs;
+
+  List get cache => _cache.value;
+  set cache(value) => _cache.value = value;
+  bool get loading => _loading.value;
+  set loading(value) => _loading.value = value;
+  bool get end => _end.value;
+  set end(value) => _end.value = value;
+  int get pagesize => _pagesize.value;
+  set pagesize(value) => _pagesize.value = value;
+  int get page => _page.value;
+  set page(value) => _page.value = value;
+  String get search => _search.value;
+  set search(value) => _search.value = value;
 
   final ItemReader reader;
   final String? params;
@@ -23,7 +36,7 @@ class InfiniteController extends GetxController {
   @override
   void onInit() {
     read();
-    debounce(search, (_) {
+    debounce(_search, (_) {
       read();
     }, time: const Duration(milliseconds: 300));
 
@@ -31,10 +44,10 @@ class InfiniteController extends GetxController {
   }
 
   reload() {
-    cache.value = [];
-    page.value = 1;
-    loading.value = false;
-    end.value = false;
+    cache = [];
+    page = 1;
+    loading = false;
+    end = false;
     return fetch();
   }
 
@@ -43,34 +56,34 @@ class InfiniteController extends GetxController {
   }
 
   readItem() async {
-    return reader(page: page.value, pagesize: pagesize, params: params);
+    return reader(page: page, pagesize: pagesize, params: params);
   }
 
   fetch() async {
-    if (loading.value == true) {
+    if (loading == true) {
       return;
     }
 
-    if (end.value == true) {
+    if (end == true) {
       return;
     }
 
-    loading.value = true;
+    loading = true;
 
     final items = await readItem();
 
     if (items.isEmpty || items.length < pagesize) {
-      end.value = true;
+      end = true;
     }
 
-    cache.value = [
+    cache = [
       ...cache,
       ...items,
     ];
 
     page++;
 
-    loading.value = false;
+    loading = false;
   }
 }
 
@@ -97,8 +110,8 @@ class InfiniteScroll extends StatelessWidget {
         Get.put(InfiniteController(reader, params), tag: (reader).toString());
 
     final cache = controller.cache;
-    final loading = controller.loading.value;
-    final end = controller.end.value;
+    final loading = controller.loading;
+    final end = controller.end;
 
     if (cache.isEmpty) {
       if (loading) {

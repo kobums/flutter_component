@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
@@ -10,4 +11,7 @@ class LoginController extends GetxController {
   set loginid(value) => _loginid.value = value;
   String get passwd => _passwd.value;
   set passwd(value) => _passwd.value = value;
+
+  final txtLoginid = TextEditingController();
+  final txtPasswd = TextEditingController();
 }

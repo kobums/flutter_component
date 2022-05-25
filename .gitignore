@@ -9,7 +9,6 @@
 .history
 .svn/
 migrate_working_dir/
-test/
 
 # IntelliJ related
 *.iml
@@ -32,6 +31,9 @@ test/
 .pub-cache/
 .pub/
 /build/
+
+# Flutter/Test
+**/test/
 
 # Web related
 lib/generated_plugin_registrant.dart

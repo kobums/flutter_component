@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 const kTextFieldDecoration = InputDecoration(
+  labelText: 'Email',
   hintText: 'Enter a value',
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
   border: OutlineInputBorder(

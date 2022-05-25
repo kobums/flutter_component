@@ -20,8 +20,8 @@ class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);
 
   Widget getActionButton(context, c) {
-    log(c.screenIndex.value.toString());
-    if (c.screenIndex.value == 1) {
+    log(c.screenIndex.toString());
+    if (c.screenIndex == 1) {
       return FloatingActionButton(
           backgroundColor: Theme.of(context).primaryColor,
           child: const Icon(Icons.add),

@@ -7,6 +7,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
+import '../../components/textfield.dart';
 import '../../config/config.dart' as config;
 import '../../constants/constants.dart';
 
@@ -46,30 +47,30 @@ class LoginScreen extends StatelessWidget {
             const SizedBox(
               height: 48.0,
             ),
-            TextField(
-              onChanged: (value) {
-                controller.loginid = value;
-              },
-              decoration:
-                  kTextFieldDecoration.copyWith(hintText: "Enter your loginid"),
-            ),
+            MyTextField(
+                controller: controller.txtLoginid,
+                data: controller.loginid,
+                decoration: kTextFieldDecoration,
+                labelText: 'Email',
+                hintText: 'Enter your email',
+                prefixIcon: const Icon(Icons.email)),
             const SizedBox(
               height: 8.0,
             ),
-            TextField(
-              onChanged: (value) {
-                controller.passwd = value;
-              },
-              decoration: kTextFieldDecoration.copyWith(
-                  hintText: "Enter your password"),
-            ),
+            MyTextField(
+                controller: controller.txtPasswd,
+                data: controller.passwd,
+                decoration: kTextFieldDecoration,
+                labelText: 'Password',
+                hintText: 'Enter your password',
+                prefixIcon: const Icon(Icons.lock)),
             const SizedBox(
               height: 24.0,
             ),
-            const Text(
-              '아이디를 확인해 주세요.',
-              style: TextStyle(color: Colors.red),
-            ),
+            // const Text(
+            //   '아이디를 확인해 주세요.',
+            //   style: TextStyle(color: Colors.red),
+            // ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: Material(
@@ -83,7 +84,7 @@ class LoginScreen extends StatelessWidget {
                   minWidth: 200.0,
                   height: 42.0,
                   child: const Text('Login In',
-                      style: TextStyle(color: Color.fromARGB(255, 30, 30, 30))),
+                      style: TextStyle(color: Color.fromARGB(108, 30, 30, 30))),
                 ),
               ),
             ),
