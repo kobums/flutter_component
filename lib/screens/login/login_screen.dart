@@ -49,7 +49,6 @@ class LoginScreen extends StatelessWidget {
             ),
             MyTextField(
                 controller: controller.txtLoginid,
-                data: controller.loginid,
                 decoration: kTextFieldDecoration,
                 labelText: 'Email',
                 hintText: 'Enter your email',
@@ -59,7 +58,6 @@ class LoginScreen extends StatelessWidget {
             ),
             MyTextField(
                 controller: controller.txtPasswd,
-                data: controller.passwd,
                 decoration: kTextFieldDecoration,
                 labelText: 'Password',
                 hintText: 'Enter your password',
@@ -79,7 +77,8 @@ class LoginScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30.0),
                 child: MaterialButton(
                   onPressed: () {
-                    login(controller.loginid, controller.passwd);
+                    login(
+                        controller.txtLoginid.text, controller.txtPasswd.text);
                   },
                   minWidth: 200.0,
                   height: 42.0,

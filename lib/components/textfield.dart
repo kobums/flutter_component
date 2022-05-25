@@ -6,10 +6,9 @@ class testfieldController extends GetxController {
 }
 
 class MyTextField extends StatelessWidget {
-  MyTextField(
+  const MyTextField(
       {Key? key,
       required this.controller,
-      required this.data,
       this.decoration,
       this.labelText,
       this.hintText,
@@ -17,7 +16,6 @@ class MyTextField extends StatelessWidget {
       : super(key: key);
 
   final controller;
-  var data;
   final decoration;
   final labelText;
   final hintText;
@@ -27,9 +25,6 @@ class MyTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
-      onChanged: (_) {
-        data = _;
-      },
       decoration: decoration.copyWith(
         labelText: labelText,
         hintText: hintText,
@@ -37,7 +32,6 @@ class MyTextField extends StatelessWidget {
         suffixIcon: IconButton(
           icon: const Icon(Icons.cancel),
           onPressed: () {
-            data = '';
             controller.clear();
           },
         ),
