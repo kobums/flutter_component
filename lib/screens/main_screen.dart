@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_component/controller/main_controller.dart';
 import 'package:flutter_component/screens/hero_screen.dart';
 import 'package:flutter_component/screens/profile_screen.dart';
-import 'package:flutter_component/screens/user_screen.dart';
+import 'package:flutter_component/screens/row_scroll_screen.dart';
 import 'package:flutter_component/screens/picture_screen.dart';
 import 'package:get/get.dart';
 
 List<Widget> screenList = [
-  const UserScreen(),
+  RowScrollScreen(),
   const PictureScreen(),
   const HeroScreen(),
   ProfileScreen(),

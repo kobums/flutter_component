@@ -48,8 +48,6 @@ class ProfileScreen extends StatelessWidget {
           TextButton(
             child: const Text("logout"),
             onPressed: () {
-              // controller.authenticated = false;
-              // Get.offAllNamed("/login");
               showAertDialog(context);
             },
           ),
