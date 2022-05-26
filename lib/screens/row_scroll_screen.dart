@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_component/components/row_scroll_components.dart';
+import 'package:flutter_component/controller/screen_controller.dart';
 import 'package:flutter_component/screens/hero_screen.dart';
 import 'package:flutter_component/screens/picture_screen.dart';
 import 'package:flutter_component/screens/profile_screen.dart';
@@ -23,83 +25,32 @@ class RowScrollScreen extends StatelessWidget {
   ];
 
   List<Widget> screenList = [
-    UserScreen(),
+    const UserScreen(),
     const PictureScreen(),
     const HeroScreen(),
     ProfileScreen(),
     ProfileScreen(),
   ];
-  final CategoryController c = Get.put(CategoryController());
+
+  ScreenController c = Get.put(ScreenController());
 
   @override
   Widget build(context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Container(
-          padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-          height: 30.0,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: categories.length,
-            itemBuilder: (context, index) => buildCategory(index),
-          ),
+        RowScrollComponents(
+          contents: categories,
+          onPress: (index) {
+            c.screenIndex = index;
+          },
         ),
-        SizedBox(
-          height: 500.0,
-          child: Obx(() => screenList[c.selectedIndex]),
+        Obx(
+          () => Expanded(
+            child: screenList[c.screenIndex],
+          ),
         )
       ],
     );
-  }
-
-  Widget buildCategory(int index) {
-    return GestureDetector(
-      onTap: () {
-        c.selectedIndex = index;
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 9),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Obx(
-              () => Container(
-                padding: const EdgeInsets.only(bottom: 4),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      width: 2.0,
-                      color: c.selectedIndex == index
-                          ? Colors.black
-                          : Colors.transparent,
-                    ),
-                  ),
-                ),
-                child: Text(
-                  categories[index],
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: c.selectedIndex == index ? Colors.red : Colors.black,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class CategoryController extends GetxController {
-  final _selectedIndex = 0.obs;
-
-  int get selectedIndex => _selectedIndex.value;
-  set selectedIndex(value) => _selectedIndex.value = value;
-
-  selectedTextColor(index) {
-    return selectedIndex == index ? Colors.red : Colors.black;
   }
 }
