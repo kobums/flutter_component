@@ -10,6 +10,12 @@ void main() {
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.pink,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.black,
+        ),
+      ),
       initialRoute: "/",
       getPages: [
         GetPage(
