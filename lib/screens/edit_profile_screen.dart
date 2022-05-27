@@ -74,16 +74,16 @@ class EditProfileScreen extends StatelessWidget {
           const SizedBox(
             child: Divider(thickness: 2.0),
           ),
-          EditTextContainer("이름"),
+          EditTextContainer(context, "이름"),
           const Padding(
-            padding: EdgeInsets.fromLTRB(120.0, 0, 20.0, 0),
+            padding: EdgeInsets.fromLTRB(110.0, 0, 20.0, 0),
             child: SizedBox(
               child: Divider(thickness: 2.0),
             ),
           ),
-          EditTextContainer("사용자 이름"),
+          EditTextContainer(context, "사용자 이름"),
           const Padding(
-            padding: EdgeInsets.fromLTRB(120.0, 0, 20.0, 0),
+            padding: EdgeInsets.fromLTRB(110.0, 0, 20.0, 0),
             child: SizedBox(
               child: Divider(thickness: 2.0),
             ),
@@ -91,8 +91,9 @@ class EditProfileScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Expanded(
-                child: Padding(
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.3,
+                child: const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 18.0),
                   child: Text(
                     "웹 사이트",
@@ -100,8 +101,8 @@ class EditProfileScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Flexible(
-                flex: 2,
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.3,
                 child: TextField(
                   controller: c.txtId,
                   decoration: const InputDecoration(
@@ -120,12 +121,12 @@ class EditProfileScreen extends StatelessWidget {
             ],
           ),
           const Padding(
-            padding: EdgeInsets.fromLTRB(120.0, 0, 20.0, 0),
+            padding: EdgeInsets.fromLTRB(110.0, 0, 20.0, 0),
             child: SizedBox(
               child: Divider(thickness: 2.0),
             ),
           ),
-          EditTextContainer("소개"),
+          EditTextContainer(context, "소개"),
           const SizedBox(
             child: Divider(thickness: 2.0),
           ),
@@ -134,22 +135,26 @@ class EditProfileScreen extends StatelessWidget {
     );
   }
 
-  Row EditTextContainer(String name) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18.0),
-            child: Text(
-              name,
-              style: const TextStyle(fontWeight: FontWeight.bold),
+  Widget EditTextContainer(BuildContext context, String name) {
+    return GestureDetector(
+      onTap: () {
+        print("asdfasd");
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.3,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18.0),
+              child: Text(
+                name,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
           ),
-        ),
-        Flexible(
-          flex: 2,
-          child: SizedBox(
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.7,
             height: 30,
             child: Padding(
               padding: const EdgeInsets.all(6),
@@ -162,8 +167,8 @@ class EditProfileScreen extends StatelessWidget {
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
