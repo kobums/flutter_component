@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_component/controller/auth_controller.dart';
-import 'package:flutter_component/screens/edit_profile_screen.dart';
+import 'package:flutter_component/screens/profile/edit_profile_screen.dart';
 import 'package:get/get.dart';
 
-import '../components/profile_photo_components.dart';
+import '../../components/profile_photo_components.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);

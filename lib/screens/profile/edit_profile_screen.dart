@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_component/components/profile_edit_text_components.dart';
 import 'package:get/get.dart';
 
-import '../components/profile_photo_components.dart';
+import '../../components/profile_photo_components.dart';
 
 class EditProfileController extends GetxController {
   EditProfileController();
@@ -139,6 +140,7 @@ class EditProfileScreen extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         print("asdfasd");
+        Get.to(ProfileEditTextComponents(editText: name));
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,

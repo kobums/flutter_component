@@ -3,7 +3,7 @@ import 'package:flutter_component/components/row_scroll_components.dart';
 import 'package:flutter_component/controller/screen_controller.dart';
 import 'package:flutter_component/screens/hero_screen.dart';
 import 'package:flutter_component/screens/picture_screen.dart';
-import 'package:flutter_component/screens/profile_screen.dart';
+import 'package:flutter_component/screens/profile/profile_screen.dart';
 import 'package:flutter_component/screens/user_screen.dart';
 import 'package:get/get.dart';
 

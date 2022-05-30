@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_component/controller/main_controller.dart';
 import 'package:flutter_component/screens/hero_screen.dart';
-import 'package:flutter_component/screens/profile_screen.dart';
+import 'package:flutter_component/screens/profile/profile_screen.dart';
 import 'package:flutter_component/screens/row_scroll_screen.dart';
 import 'package:flutter_component/screens/picture_screen.dart';
 import 'package:get/get.dart';
