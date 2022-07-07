@@ -15,6 +15,12 @@ dependencies:
   google_fonts: ^2.3.3
   shared_preferences:
   flutter_secure_storage:
+  intl:
+  table_calendar:
+  syncfusion_flutter_datepicker:
+  flutter_localizations:
+    sdk: flutter
+  flutter_cupertino_localizations:
 
 dev_dependencies:
   flutter_test:

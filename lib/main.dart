@@ -11,7 +11,7 @@ void main() {
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.pink,
+        // primarySwatch: Colors.pink,
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.black,
         ),

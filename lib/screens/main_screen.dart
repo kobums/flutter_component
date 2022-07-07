@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_component/controller/main_controller.dart';
+import 'package:flutter_component/screens/date_range_screen.dart';
 import 'package:flutter_component/screens/hero_screen.dart';
 import 'package:flutter_component/screens/profile/profile_screen.dart';
 import 'package:flutter_component/screens/row_scroll_screen.dart';
@@ -13,7 +14,8 @@ List<Widget> screenList = [
   RowScrollScreen(),
   const PictureScreen(),
   const HeroScreen(),
-  ProfileScreen(),
+  // CalendarScreen(),
+  DateRangeScreen(),
   ProfileScreen(),
 ];
 
